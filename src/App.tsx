@@ -1,43 +1,67 @@
-import { Component } from 'react';
 import './App.css';
 
-// class
-// function
-
-// components, jsx
+// props -> children -> events
 
 export default function App() {
-  /**
-    1. component (dom, user defined)
-    2. number, string, boolean, undefined, null, arrays
-  */
+  const handleClick = () => {
+    console.log('Here was clicked');
+  };
+
+  const handleInput = (e: any) => {
+    console.log(e.target.value);
+  };
 
   return (
     <main>
-      <p>i'm also here</p>
-      <MyName></MyName>
+      <input type="text" onInput={handleInput} />
+      <button onClick={handleClick}>Click Here</button>
+      <User username="" age={0} />
+      <div aria-hidden style={{ width: 200, height: 200, background: 'hotpink', filter: 'blur(100px)' }} />
+      {/* <Content></Content> */}
     </main>
   );
 }
 
-const MyName = () => {
-  const age = 90;
+interface Props {
+  username: string;
+  age: number;
+  children?: React.ReactNode;
+}
+
+function User(params: Props) {
+  console.log(params);
+
+  const { username, age, children } = params;
+
+  // const {username, age} = {
+  //   username: 'some username',
+  //   age: 90,
+  // }
 
   return (
     <div>
-      <h1>The Div Guy, {age}</h1>
-      <p>Bro</p>
-      <TestComponent></TestComponent>
+      <h1>{username}</h1>
+      <p>I am {age} years old</p>
+      {children}
     </div>
   );
-};
-
-class TestComponent extends Component {
-  render() {
-    return (
-      <div data-from-class="true">
-        <p>I live inside a class</p>
-      </div>
-    );
-  }
 }
+
+// function Content() {
+//   return (
+//     <div>
+//       <User age={91} username={'TheDivGuy'}>
+//         <div>
+//           <p>
+//             This <strong>is</strong> some extra content
+//           </p>
+//           <span>
+//             <span></span>
+//           </span>
+//         </div>
+//       </User>
+
+//       <User username="Name" age={98}></User>
+//     </div>
+//   );
+// }
