@@ -1,44 +1,14 @@
-import { useState } from 'react';
 import './App.css';
+import Button from './components/button';
+import Card from './components/card';
 
 export default function App() {
-  const [backgroundColor, setBackgroundColor] = useState<'red' | 'orange'>('red');
-  const [value, setValue] = useState(`Hello ${backgroundColor}`);
-
-  const handleClick = async () => {
-    // orange
-    setBackgroundColor((prev) => {
-      if (prev === 'red') return 'orange';
-      else return 'red';
-    });
-
-    setValue((prev) => {
-      return prev.includes('Hello') ? `Hi ${backgroundColor}` : `Hello ${backgroundColor}`;
-    });
-  };
-
   return (
-    <div>
-      <button onClick={handleClick} style={{ backgroundColor }}>
-        <h1>{value}</h1>
-      </button>
+    <div className="bahr-wali-div">
+      <style>{'.bahr-wali-div {display: flex;}'}</style>
+      <Card></Card>
+      <Button></Button>
+      <button>Global Button</button>
     </div>
   );
 }
-
-/* 
-let backgroundColor = 'red';
-
-function setBackgroundColor(color: string): void {
-  backgroundColor = color;
-}
-
-function useState(color: string): [string, (v: string) => void] {
-  setBackgroundColor(color);
-
-  return [color, setBackgroundColor];
-}
-
-const [bg, setBg] = useState('red')
-
-*/
