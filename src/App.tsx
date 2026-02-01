@@ -1,35 +1,47 @@
-import './App.css';
 import React from 'react';
 
 export default function App() {
-  const [user] = React.useState({ name: 'Brother' });
-  const [isLoggedIn] = React.useState(true);
+  // const [user, setUser] = React.useState('najmiter');
+  const [users, setUsers] = React.useState(['Ali', 'Noor', 'Huzaifa']);
 
-  const users = [user];
+  // const newUsers = users.map((user, i) => {
+  //   return <span key={user + i}>{user}</span>;
+  // });
 
-  // const node: React.ReactNode = 123;
+  // const newUsers = [<span>Ali</span>, <span>Noor</span>, <span>Huzaifa</span>];
 
-  // if (user.name) {
-  //   return (
-  //     <div>
-  //       <h1>Hello User. You are logged in!</h1>
-  //     </div>
-  //   );
-  // }
+  const hanldeSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { user } = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+
+    if (user.trim()) {
+      console.log('adding a user', user);
+      const updatedUsers = structuredClone(users);
+      updatedUsers.unshift(user);
+      // const newUsers = [user, ...users];
+      // setUsers(newUsers);
+      // setUsers(updatedUsers);
+      setUsers((prevUsers) => {
+        return [user, ...prevUsers];
+      });
+
+      e.currentTarget.reset();
+    }
+  };
 
   return (
-    <div>
-      <h1>Hello, {user.name ? <button>Sign Out</button> : <button>Sign In</button>}</h1>
+    <div className="grid place-content-center mt-10">
+      <form onSubmit={hanldeSubmit}>
+        <input type="text" name="user" placeholder="Type bro's name" />
+        <button type="submit">Add User</button>
+      </form>
 
-      <h2>{isLoggedIn ? 'Welcome' : 'Please log in'}</h2>
-
-      {!!users.length && (
-        <main>
-          {/* dashboard nav */}
-          <h3 className="text-5xl">We got some users</h3>
-          {/* dashboard content */}
-        </main>
-      )}
+      {/* <div className="grid gap-5 mt-10">{newUsers}</div> */}
+      <div className="grid gap-5 mt-10">
+        {users.map((user, i) => (
+          <span key={user + i}>{user}</span>
+        ))}
+      </div>
     </div>
   );
 }
