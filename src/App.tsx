@@ -1,47 +1,34 @@
 import React from 'react';
 
+// const IDZ = [1, 2, 3] as const;
+
 export default function App() {
-  // const [user, setUser] = React.useState('najmiter');
-  const [users, setUsers] = React.useState(['Ali', 'Noor', 'Huzaifa']);
+  const [count, setCount] = React.useState(() => {
+    return +(localStorage.getItem('count') ?? '0');
+  });
 
-  // const newUsers = users.map((user, i) => {
-  //   return <span key={user + i}>{user}</span>;
-  // });
+  // const [todos, setTodos] = React.useState(IDZ);
 
-  // const newUsers = [<span>Ali</span>, <span>Noor</span>, <span>Huzaifa</span>];
+  React.useEffect(() => {
+    console.log('Effect ran');
+    localStorage.setItem('count', count.toString());
 
-  const hanldeSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { user } = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const handler = () => {
+      console.log('clicked');
+    };
 
-    if (user.trim()) {
-      console.log('adding a user', user);
-      const updatedUsers = structuredClone(users);
-      updatedUsers.unshift(user);
-      // const newUsers = [user, ...users];
-      // setUsers(newUsers);
-      // setUsers(updatedUsers);
-      setUsers((prevUsers) => {
-        return [user, ...prevUsers];
-      });
+    document.addEventListener('click', handler);
 
-      e.currentTarget.reset();
-    }
-  };
+    return () => {
+      console.log('Cleaning...');
+      document.removeEventListener('click', handler);
+    };
+  }, [count]);
 
   return (
     <div className="grid place-content-center mt-10">
-      <form onSubmit={hanldeSubmit}>
-        <input type="text" name="user" placeholder="Type bro's name" />
-        <button type="submit">Add User</button>
-      </form>
-
-      {/* <div className="grid gap-5 mt-10">{newUsers}</div> */}
-      <div className="grid gap-5 mt-10">
-        {users.map((user, i) => (
-          <span key={user + i}>{user}</span>
-        ))}
-      </div>
+      <div>{count}</div>
+      <button onClick={() => setCount((p) => p + 1)}>+</button>
     </div>
   );
 }
