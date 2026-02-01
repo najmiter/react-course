@@ -1,23 +1,35 @@
 import './App.css';
+import React from 'react';
 
 export default function App() {
-  return (
-    <div className="relative grid gap-10">
-      <p className="text-yellow-500 grid grid-cols-[repeat(20,1fr)] sm:flex font-bold after:absolute after:top-0 after:left-0 after:bg-amber-500 after:size-4">
-        Lorem, ipsum dolor.
-      </p>
-      <p
-        data-active="true"
-        className="text-yellow-500 hover:text-red-500 data-[active='true']:font-bold cursor-pointer transition-transform has-[div:hover]:text-indigo-500 relative">
-        Lorem, ipsum dolor.
-        <div className="absolute -bottom-100 left-0">div</div>
-      </p>
+  const [user] = React.useState({ name: 'Brother' });
+  const [isLoggedIn] = React.useState(true);
 
-      <div className="[&_p]:text-pink-500">
-        <div>
-          <p>Child para</p>
-        </div>
-      </div>
+  const users = [user];
+
+  // const node: React.ReactNode = 123;
+
+  // if (user.name) {
+  //   return (
+  //     <div>
+  //       <h1>Hello User. You are logged in!</h1>
+  //     </div>
+  //   );
+  // }
+
+  return (
+    <div>
+      <h1>Hello, {user.name ? <button>Sign Out</button> : <button>Sign In</button>}</h1>
+
+      <h2>{isLoggedIn ? 'Welcome' : 'Please log in'}</h2>
+
+      {!!users.length && (
+        <main>
+          {/* dashboard nav */}
+          <h3 className="text-5xl">We got some users</h3>
+          {/* dashboard content */}
+        </main>
+      )}
     </div>
   );
 }
