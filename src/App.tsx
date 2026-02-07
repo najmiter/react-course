@@ -1,34 +1,103 @@
 import React from 'react';
 
-// const IDZ = [1, 2, 3] as const;
+// const TIMEOUT = 3 * 1000;
 
 export default function App() {
-  const [count, setCount] = React.useState(() => {
-    return +(localStorage.getItem('count') ?? '0');
-  });
+  // const [ids, setIds] = React.useState<string[]>([]);
 
-  // const [todos, setTodos] = React.useState(IDZ);
+  // const inputRef = React.useRef<HTMLInputElement | null>(null);
+  // const timeoutRef = React.useRef<number | null>(null);
 
-  React.useEffect(() => {
-    console.log('Effect ran');
-    localStorage.setItem('count', count.toString());
+  // React.useEffect(() => {
+  //   if (!inputRef.current) return;
 
-    const handler = () => {
-      console.log('clicked');
-    };
+  //   inputRef.current.focus();
+  // }, []);
 
-    document.addEventListener('click', handler);
+  // React.useEffect(() => {
+  //   if (typeof timeoutRef.current === 'number') return;
 
-    return () => {
-      console.log('Cleaning...');
-      document.removeEventListener('click', handler);
-    };
-  }, [count]);
+  //   timeoutRef.current = setInterval(() => {
+  //     setIds((prev) => [...prev, crypto.randomUUID()]);
+  //   }, TIMEOUT);
+  // }, []);
+
+  // 0...TIMEOUT => 560ms => 0ms
+
+  // const handleReset = () => {
+  //   if (timeoutRef.current) {
+  //     clearInterval(timeoutRef.current); // 120
+  //     timeoutRef.current = null;
+  //   }
+
+  //   timeoutRef.current = setInterval(() => {
+  //     setIds((prev) => [...prev, crypto.randomUUID()]);
+  //   }, TIMEOUT);
+  // };
 
   return (
-    <div className="grid place-content-center mt-10">
-      <div>{count}</div>
-      <button onClick={() => setCount((p) => p + 1)}>+</button>
+    <div className="grid ">
+      {/* <input ref={inputRef} type="text" placeholder="Enter some text" /> */}
+
+      {/* <button onClick={handleReset}>Reset interval</button> */}
+
+      {/* <ul className="mt-5">
+        {ids.map((id) => (
+          <li className="font-mono" key={id}>
+            {id}
+          </li>
+        ))}
+      </ul> */}
+
+      <ObserverDemo />
     </div>
+  );
+}
+
+function ObserverDemo() {
+  const [jha, setJha] = React.useState(false);
+  // const sectionRef = React.useRef<HTMLDivElement | null>(null);
+
+  // React.useEffect(() => {
+  //   if (!sectionRef.current) return;
+
+  //   const observer = new IntersectionObserver(
+  //     ([section]) => {
+  //       setJha(section.isIntersecting);
+  //     },
+  //     { threshold: 1 },
+  //   );
+  //   observer.observe(sectionRef.current);
+
+  //   return () => {
+  //     observer.disconnect();
+  //   };
+  // }, []);
+
+  return (
+    <>
+      <div className="h-svh bg-blue-950 w-full"></div>
+      <section
+        // ref={sectionRef}
+        className="h-[50vh] mb-50 bg-red-500 grid place-content-center"
+        ref={(div) => {
+          const observer = new IntersectionObserver(
+            ([section]) => {
+              setJha(section.isIntersecting);
+            },
+            { threshold: 1 },
+          );
+
+          console.log('observing...');
+          observer.observe(div);
+
+          return () => {
+            console.log('cleaning...');
+            observer.disconnect();
+          };
+        }}>
+        <h1 className="text-7xl">{jha ? '🙉' : '🙈'}</h1>
+      </section>
+    </>
   );
 }
