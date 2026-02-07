@@ -1,103 +1,41 @@
 import React from 'react';
 
-// const TIMEOUT = 3 * 1000;
-
 export default function App() {
-  // const [ids, setIds] = React.useState<string[]>([]);
+  const [count, setCount] = React.useState(0);
+  const [count2, setCount2] = React.useState(0);
 
-  // const inputRef = React.useRef<HTMLInputElement | null>(null);
-  // const timeoutRef = React.useRef<number | null>(null);
+  // const todos = [1, 2, 3];
 
-  // React.useEffect(() => {
-  //   if (!inputRef.current) return;
+  const value = React.useMemo(() => {
+    let total = 0;
+    for (const i of Array(10_000_000).keys()) {
+      total += i + count2;
+    }
+    return total;
+  }, [count2]);
 
-  //   inputRef.current.focus();
-  // }, []);
-
-  // React.useEffect(() => {
-  //   if (typeof timeoutRef.current === 'number') return;
-
-  //   timeoutRef.current = setInterval(() => {
-  //     setIds((prev) => [...prev, crypto.randomUUID()]);
-  //   }, TIMEOUT);
-  // }, []);
-
-  // 0...TIMEOUT => 560ms => 0ms
-
-  // const handleReset = () => {
-  //   if (timeoutRef.current) {
-  //     clearInterval(timeoutRef.current); // 120
-  //     timeoutRef.current = null;
+  // const getValue = () => {
+  //   let total = 0;
+  //   for (const i of Array(10_000_000).keys()) {
+  //     total += i;
   //   }
-
-  //   timeoutRef.current = setInterval(() => {
-  //     setIds((prev) => [...prev, crypto.randomUUID()]);
-  //   }, TIMEOUT);
+  //   return total;
   // };
 
+  const handleClick = () => {
+    setCount((p) => p + 1);
+    if (count % 2 === 0) {
+      setCount2((p) => p + 1);
+    }
+  };
+
   return (
-    <div className="grid ">
-      {/* <input ref={inputRef} type="text" placeholder="Enter some text" /> */}
-
-      {/* <button onClick={handleReset}>Reset interval</button> */}
-
-      {/* <ul className="mt-5">
-        {ids.map((id) => (
-          <li className="font-mono" key={id}>
-            {id}
-          </li>
-        ))}
-      </ul> */}
-
-      <ObserverDemo />
+    <div className="grid h-svh place-content-center pt-5 gap-5">
+      <button onClick={handleClick} className="p-3 rounded-xl bg-indigo-500 cursor-pointer">
+        {count} +
+      </button>
+      <h1 className="text-7xl font-mono">{value}</h1>
+      {/* <h1 className="text-7xl font-mono">{getValue()}</h1> */}
     </div>
-  );
-}
-
-function ObserverDemo() {
-  const [jha, setJha] = React.useState(false);
-  // const sectionRef = React.useRef<HTMLDivElement | null>(null);
-
-  // React.useEffect(() => {
-  //   if (!sectionRef.current) return;
-
-  //   const observer = new IntersectionObserver(
-  //     ([section]) => {
-  //       setJha(section.isIntersecting);
-  //     },
-  //     { threshold: 1 },
-  //   );
-  //   observer.observe(sectionRef.current);
-
-  //   return () => {
-  //     observer.disconnect();
-  //   };
-  // }, []);
-
-  return (
-    <>
-      <div className="h-svh bg-blue-950 w-full"></div>
-      <section
-        // ref={sectionRef}
-        className="h-[50vh] mb-50 bg-red-500 grid place-content-center"
-        ref={(div) => {
-          const observer = new IntersectionObserver(
-            ([section]) => {
-              setJha(section.isIntersecting);
-            },
-            { threshold: 1 },
-          );
-
-          console.log('observing...');
-          observer.observe(div);
-
-          return () => {
-            console.log('cleaning...');
-            observer.disconnect();
-          };
-        }}>
-        <h1 className="text-7xl">{jha ? '🙉' : '🙈'}</h1>
-      </section>
-    </>
   );
 }
