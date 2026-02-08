@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '@/hooks/use-theme';
+import { useTheme } from './hooks/use-theme';
 
 // 1. it must start with the 'use'
 // 2. it must NOT be called conditionally
