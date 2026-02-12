@@ -36,7 +36,7 @@ export default function DetailsPage() {
           />
         </div>
 
-        {<ProductDetails product={data} />}
+        {data && <ProductDetails product={data} />}
       </div>
     </div>
   );
