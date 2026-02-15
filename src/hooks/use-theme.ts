@@ -1,7 +1,7 @@
+import type { ThemeType } from '@/types';
 import React from 'react';
 
 export function useTheme() {
-  type ThemeType = 'dark' | 'light';
   const [theme, setTheme] = React.useState<ThemeType>(() => {
     return (localStorage.getItem('theme') ?? 'dark') as ThemeType;
   });

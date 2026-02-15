@@ -2,6 +2,14 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  --card: #dbdbdb;
+}
+
+.dark {
+  --card: #181818;
+}
+
 @theme inline {
-  --color-card: #181818;
+  --color-card: var(--card);
 }

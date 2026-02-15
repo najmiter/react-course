@@ -7,14 +7,14 @@ interface Props {
 interface Return<T> {
   isLoading: boolean;
   data: T | undefined;
-  error: Error;
+  error: Error | null;
 }
 
 // const queryFn = () => fetch('https://dummyjson.com/products/1');
 // await queryFn()
 
 export function useQuery<T>({ queryFn }: Props): Return<T> {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [data, setData] = React.useState<T | undefined>(undefined);
   const [error, setError] = React.useState<Error | null>(null);
 

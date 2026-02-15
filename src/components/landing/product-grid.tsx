@@ -2,6 +2,7 @@ import ProductCard from '@/components/common/product-card';
 import { useQuery } from '@/hooks/use-query';
 import type { IProduct } from '@/types/api/products';
 import Skeleton from '../ui/skeleton';
+import React from 'react';
 
 type DummyProducts = { products: Array<IProduct> };
 
