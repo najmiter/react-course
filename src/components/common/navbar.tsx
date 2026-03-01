@@ -10,7 +10,7 @@ export default function NavBar() {
   const activeClasses = 'text-indigo-500 font-semibold';
 
   return (
-    <nav className="p-2 sticky w-full top-0 left-0 border-b border-neutral-800">
+    <nav className="p-2 sticky w-full bg-background top-0 left-0 border-b border-neutral-800">
       <div className="max-w-5xl flex items-center justify-between gap-2 mx-auto">
         <h1 className="cursor-default font-semibold font-serif text-lg">Our App</h1>
 

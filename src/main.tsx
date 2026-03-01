@@ -2,9 +2,12 @@ import { /* createElement, */ StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import AppRoutes from './routes.tsx';
+import MainProvider from './hooks/contexts/main-provider.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AppRoutes />
+    <MainProvider>
+      <AppRoutes />
+    </MainProvider>
   </StrictMode>,
 );
