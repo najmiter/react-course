@@ -1,5 +1,5 @@
 import type { IProduct, IProductsResponse } from '@/types/product';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { PRODUCTS_QUERY_KEYS } from './keys';
 
 export function useGetProducts(isEnabled: boolean = true) {
@@ -17,7 +17,7 @@ export function useGetProducts(isEnabled: boolean = true) {
 }
 
 export function useGetProductById(id: number | string) {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: PRODUCTS_QUERY_KEYS.PRODUCT_BY_ID(id),
     queryFn: async () => {
       const res = await fetch(`https://dummyjson.com/products/${id}`);
