@@ -14,7 +14,7 @@ export default function NotFoundPage() {
           beatae consequuntur.
         </p>
         <pre>
-          {params['*'].split('/').map((path, i) => (
+          {params['*']?.split('/').map((path, i) => (
             <p key={i + path}>{path}</p>
           ))}
         </pre>

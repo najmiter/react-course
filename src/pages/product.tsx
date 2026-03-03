@@ -7,7 +7,7 @@ import { useParams } from 'react-router';
 
 export default function Product() {
   const params = useParams();
-  const { data, isLoading } = useGetProductById(params.id);
+  const { data, isLoading } = useGetProductById(params.id!);
 
   const mutation = useToast({
     onMutate() {},
@@ -27,7 +27,7 @@ export default function Product() {
 
     loadingMsg: 'Mutation the product',
     successMsg: 'Product updated successfully',
-    invalidateQueries: [PRODUCTS_QUERY_KEYS.PRODUCT_BY_ID(params.id)],
+    invalidateQueries: [PRODUCTS_QUERY_KEYS.PRODUCT_BY_ID(params.id!)],
   });
 
   return (
@@ -40,9 +40,9 @@ export default function Product() {
 
       {!isLoading && (
         <div className="p-4">
-          <h1 className={cn('text-indigo-500', { 'text-yellow-500': mutation.isPending })}>{data.title}</h1>
+          <h1 className={cn('text-indigo-500', { 'text-yellow-500': mutation.isPending })}>{data?.title}</h1>
           {mutation.error && <pre className="text-red-500">{mutation.error.message}</pre>}
-          <img src={data.images[0]} width={500} height={500} alt="" />
+          <img src={data?.images[0]} width={500} height={500} alt="" />
           <Button onClick={() => mutation.mutate()}>Add to Cart</Button>
         </div>
       )}
