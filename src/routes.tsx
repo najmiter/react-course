@@ -7,6 +7,7 @@ import Product from './pages/product';
 import MainLayout from './components/layouts/main-layout';
 import ProductLayout from './components/layouts/product-layout';
 import NotFoundPage from './pages/not-found';
+import CheckoutPage from './pages/checkout';
 
 export default function AppRoutes() {
   return (
@@ -17,6 +18,9 @@ export default function AppRoutes() {
           <Route index element={<HomePage />} />
           {/* /about */}
           <Route path="about" element={<AboutPage />} />
+
+          {/* /checkout */}
+          <Route path="checkout" element={<CheckoutPage />} />
 
           <Route path="products" element={<ProductLayout />}>
             {/* /products */}

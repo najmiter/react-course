@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { NavLink } from 'react-router';
 
 const LINKS = [
@@ -18,7 +19,7 @@ export default function NavBar() {
           <ul className="flex items-center gap-4">
             {LINKS.map((link) => (
               <li key={link.to}>
-                <NavLink to={link.to} className={({ isActive }) => isActive && activeClasses}>
+                <NavLink to={link.to} className={({ isActive }) => cn({ [activeClasses]: isActive })}>
                   {link.label}
                 </NavLink>
               </li>
