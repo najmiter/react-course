@@ -1,13 +1,10 @@
 import { /* createElement, */ StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import AppRoutes from './routes.tsx';
-import MainProvider from './hooks/contexts/main-provider.tsx';
+import App from './app';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <MainProvider>
-      <AppRoutes />
-    </MainProvider>
+    <App />
   </StrictMode>,
 );

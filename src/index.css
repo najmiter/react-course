@@ -118,7 +118,12 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  input {
+    @apply bg-neutral-600 border rounded-xl p-2 outline-none focus-within:border-neutral-400;
   }
 }
